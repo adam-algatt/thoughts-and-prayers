@@ -26,15 +26,25 @@ Create a virtual called reactionCount that retrieves the length of the thought's
 */
 const { Schema, model } = require('mongoose');
 
-const UserSchema = new Schema({
+const ThoughtSchema = new Schema({
   thoughtText: {
     type: String,
     required: 'Thought text is Required',
     min: [1, "You are required to input at least one character for a valid thought"],
-    max: 280,
-    created_at: Date.now
+    max: 280
   },
+  //use getter method to format the timestamp on query
+  createdAt: {
+    date: date.now(),
+  },
+  username: [UserSchema.username]
 
 });
 
+let reactionCount = ThoughtSchema.virtual('reactionCount');
+
+reactionCount.get( =>() {
+
+})
+const Thought = model('Thought', ThoughtSchema);
 module.exports = Thought;
